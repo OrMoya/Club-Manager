@@ -8,7 +8,11 @@ export class MemberTable extends Component {
 
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     this.state = { memberData: [], loading: true, editMemberId: ""};
+=======
+    this.state = { memberData: [], loading: true, editMemberId: "" };
+>>>>>>> f0bbaf4c4a1f9ad61693caf9efbfd39ae65e09a9
   }
 
   componentDidMount() {
@@ -52,7 +56,10 @@ export class MemberTable extends Component {
     cancelEditMember
   ) {
     return (
+<<<<<<< HEAD
       <form>
+=======
+>>>>>>> f0bbaf4c4a1f9ad61693caf9efbfd39ae65e09a9
       <table className="table table-striped" aria-labelledby="tableLabel">
         <thead>
           <tr>
@@ -82,7 +89,10 @@ export class MemberTable extends Component {
           ))}
         </tbody>
       </table>
+<<<<<<< HEAD
       </form>
+=======
+>>>>>>> f0bbaf4c4a1f9ad61693caf9efbfd39ae65e09a9
     );
   }
 
@@ -97,8 +107,12 @@ export class MemberTable extends Component {
         this.removeMember,
         this.editMember,
         this.state.editMemberId,
+<<<<<<< HEAD
         this.cancelEditMember,
         this.editMemberData
+=======
+        this.cancelEditMember
+>>>>>>> f0bbaf4c4a1f9ad61693caf9efbfd39ae65e09a9
       )
     );
 
@@ -115,4 +129,8 @@ export class MemberTable extends Component {
     const data = await response.json();
     this.setState({ memberData: data, loading: false, editMemberId: "" });
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f0bbaf4c4a1f9ad61693caf9efbfd39ae65e09a9
