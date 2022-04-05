@@ -35,7 +35,7 @@ public class MemberController : ControllerBase{
     public ActionResult<CreateMemberDto> CreateMember(CreateMemberDto memberDto){
         Member member = new(){
             Id = Guid.NewGuid(),
-            Name = memberDto.Name,
+            FullName = memberDto.FullName,
             Email = new MailAddress(memberDto.Email), 
             Status = memberDto.Status,
             JoinDate = DateTime.UtcNow
@@ -53,7 +53,7 @@ public class MemberController : ControllerBase{
             return NotFound();
 
         var updatedMember = existingMember with {
-            Name = memberDto.Name,
+            FullName = memberDto.FullName,
             Email = new MailAddress(memberDto.Email),
             Status = memberDto.Status
         };
