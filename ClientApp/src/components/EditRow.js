@@ -10,7 +10,7 @@ const EditRow = ({memberData, cancelEditMember}) => {
   });
 
   const handleEditFormChange = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
     const fieldName = String(event.target.getAttribute("name"));
     const fieldValue = event.target.value;
@@ -25,7 +25,9 @@ const EditRow = ({memberData, cancelEditMember}) => {
     e.preventDefault();
     
     const url = `/members/${member.id}`;
-    const res = await axios.put(url, {fullname: editFormData.fullname, email: editFormData.email, status: editFormData.status})
+    const res =  await axios.put(url, {fullname: editFormData.fullname, email: editFormData.email, status: editFormData.status});
+
+    cancelEditMember(e);
   }
     return (
         <tr>
@@ -43,9 +45,8 @@ const EditRow = ({memberData, cancelEditMember}) => {
           <input
             type="text"
             required="required"
-            placeholder="Enter Email"
+            placeholder={memberData.email}
             name="email"
-            value={memberData.email}
             onChange={handleEditFormChange}
           ></input>
         </td>
@@ -62,7 +63,7 @@ const EditRow = ({memberData, cancelEditMember}) => {
           {memberData.joinDate}
         </td>
         <td>
-          <button type="submit" onClick={(e) => updateMember(e, memberData)}>Save</button>
+          <button type="button" onClick={(e) => updateMember(e, memberData)}>Save</button>
           <button type="button" onClick={(e) => cancelEditMember(e)}>
             Cancel
           </button>
