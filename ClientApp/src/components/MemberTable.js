@@ -9,7 +9,26 @@ export class MemberTable extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { memberData: [], loading: true, editMemberId: ""};
+    this.state = {
+      memberData: [],
+      rerender: false,
+      loading: true,
+      editMemberId: "",
+      addMemberObject: 
+      {
+        fullname: "",
+        email: "",
+        status: false,
+      },
+    };
+    this.rerenderTable = this.rerenderTable.bind(this);
+  }
+
+  async rerenderTable() {
+    console.log("rerenderTable()")
+    const response = await fetch("members");
+    const data = await response.json();
+    this.setState({ memberData: data,});
   }
 
   componentDidMount() {
@@ -43,71 +62,61 @@ export class MemberTable extends Component {
 
   cancelEditMember = (e) => {
     this.setState({ editMemberId: null });
+    this.rerenderTable();
   };
 
+  onChange(event){
+
+    const fieldName = String(event.target.getAttribute("name"));
+    const fieldValue = event.target.value;
+
+    this.setState({addMemberObject: {}})
+  }
+  handleSubmit(event) {}
   static renderMemberTable(
     memberData,
     removeMember,
     editMember,
     editMemberId,
-    cancelEditMember
+    cancelEditMember,
+    rerenderTable,
   ) {
     return (
       <div>
-      <form>
-      <table className="table table-striped" aria-labelledby="tableLabel">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Membership Status</th>
-            <th>Join Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {memberData.map((memberData) => (
-            <Fragment>
-              {editMemberId === memberData.id ? (
-                <EditRow
-                  memberData={memberData}
-                  cancelEditMember={cancelEditMember}
-                />
-              ) : (
-                <ReadOnlyRow
-                  memberData={memberData}
-                  removeMember={removeMember}
-                  editMember={editMember}
-                />
-              )}
-            </Fragment>
-          ))}
-        </tbody>
-      </table>
-      </form>
+        <form>
+          <table className="table table-striped" aria-labelledby="tableLabel">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Membership Status</th>
+                <th>Join Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {memberData.map((memberData) => (
+                <Fragment>
+                  {editMemberId === memberData.id ? (
+                    <EditRow
+                      memberData={memberData}
+                      cancelEditMember={cancelEditMember}
+                      rerenderTable={rerenderTable}
+                    />
+                  ) : (
+                    <ReadOnlyRow
+                      memberData={memberData}
+                      removeMember={removeMember}
+                      editMember={editMember}
+                    />
+                  )}
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
+        </form>
 
-      <h2>Add a Contact</h2>
-      <form>
-        <input
-          type="text"
-          name="fullName"
-          required="required"
-          placeholder="Enter a name..."
-        />
-        <input
-          type="text"
-          name="email"
-          required="required"
-          placeholder="Enter an email addres..."
-        />
-        <input
-          type="text"
-          name="status"
-          required="required"
-          placeholder="Has this member paid for membership?"
-        />
-        <button type="submit">Add</button>
-      </form>
+        <AddRow rerenderTable={rerenderTable}/>
       </div>
     );
   }
@@ -124,6 +133,7 @@ export class MemberTable extends Component {
         this.editMember,
         this.state.editMemberId,
         this.cancelEditMember,
+        this.rerenderTable,
       )
     );
 
