@@ -1,0 +1,21 @@
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    transition: 250ms;
+  }
+  
+  .btn-primary:hover{
+      background-color: #347cc4;
+  }
+
+  .btn-delete {
+    color: #fff;
+    background-color: red;
+    border-color: orangered;
+    transition: 250ms;
+  }
+
+  .btn-delete:hover{
+    background-color: 	#DA2C43;
+  }

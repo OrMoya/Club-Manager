@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditRow from "./EditRow";
+import AddRow from "./AddRow";
 
 export class MemberTable extends Component {
   static displayName = MemberTable.name;
@@ -52,6 +53,7 @@ export class MemberTable extends Component {
     cancelEditMember
   ) {
     return (
+      <div>
       <form>
       <table className="table table-striped" aria-labelledby="tableLabel">
         <thead>
@@ -83,6 +85,30 @@ export class MemberTable extends Component {
         </tbody>
       </table>
       </form>
+
+      <h2>Add a Contact</h2>
+      <form>
+        <input
+          type="text"
+          name="fullName"
+          required="required"
+          placeholder="Enter a name..."
+        />
+        <input
+          type="text"
+          name="email"
+          required="required"
+          placeholder="Enter an email addres..."
+        />
+        <input
+          type="text"
+          name="status"
+          required="required"
+          placeholder="Has this member paid for membership?"
+        />
+        <button type="submit">Add</button>
+      </form>
+      </div>
     );
   }
 

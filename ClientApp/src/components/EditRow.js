@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import './MemberTable.css'
 
 const EditRow = ({memberData, cancelEditMember}) => {
 
@@ -14,6 +15,9 @@ const EditRow = ({memberData, cancelEditMember}) => {
 
     const fieldName = String(event.target.getAttribute("name"));
     const fieldValue = event.target.value;
+    
+    console.log(fieldName);
+    console.log(fieldValue);
 
     const newFormData = { ...editFormData };
     newFormData[fieldName] = fieldValue;
@@ -35,9 +39,8 @@ const EditRow = ({memberData, cancelEditMember}) => {
           <input
             type="text"
             required="required"
-            placeholder={memberData.fullname}
+            placeholder="Enter a full name..."
             name="fullname"
-            // value={memberData.name}
             onChange={handleEditFormChange}
           ></input>
         </td>
@@ -45,7 +48,7 @@ const EditRow = ({memberData, cancelEditMember}) => {
           <input
             type="text"
             required="required"
-            placeholder={memberData.email}
+            placeholder="Enter an email..."
             name="email"
             onChange={handleEditFormChange}
           ></input>
@@ -53,9 +56,7 @@ const EditRow = ({memberData, cancelEditMember}) => {
         <td> 
           <input
             type="checkbox"
-            //checked={memberData.status}
             name="status"
-            // value={memberData.status}
             onChange={handleEditFormChange}
           ></input>
         </td>
@@ -63,8 +64,8 @@ const EditRow = ({memberData, cancelEditMember}) => {
           {memberData.joinDate}
         </td>
         <td>
-          <button type="button" onClick={(e) => updateMember(e, memberData)}>Save</button>
-          <button type="button" onClick={(e) => cancelEditMember(e)}>
+          <button type="submit" class ="btn-primary" onClick={(e) => updateMember(e, memberData)}>Save</button>
+          <button type="button" class ="btn-primary" onClick={(e) => cancelEditMember(e)}>
             Cancel
           </button>
         </td>
